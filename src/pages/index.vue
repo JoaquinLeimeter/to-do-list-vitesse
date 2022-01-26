@@ -53,11 +53,36 @@ const todoList = ref([
   .container{
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: auto;
   }
+  .container > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2rem 0;
+  }
   .todo-list{
-    background-color: burlywood;
     padding: 50px;
+    border: 3px solid red;
+    text-align: left;
+  }
+  .content-table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1.5rem;
+    min-width: 500px;
+  }
+  .content-table thead tr {
+    background-color: rgb(83, 83, 83);
+    text-align: left;
+    color: #FFF;
+  }
+  .content-table th,
+  .content-table td {
+    padding: 12px 15px;
+  }
+  .content-table tbody tr{
+    border-bottom: 1px solid green;
   }
 </style>
 
