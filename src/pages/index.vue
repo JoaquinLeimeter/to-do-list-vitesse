@@ -44,7 +44,6 @@ const changeState = (e: Event, id: number): void => {
           <tr>
             <th>#</th>
             <th>to do</th>
-            <th>completed?</th>
             <th>done</th>
           </tr>
         </thead>
@@ -57,11 +56,9 @@ const changeState = (e: Event, id: number): void => {
               {{ item.text }}
             </td>
             <td>
-              {{ item.completed.toString() }}
-            </td>
-            <td>
               <button @click="changeState(e, item.id)">
-                toggle
+                <carbon-checkmark v-if="item.completed" />
+                <carbon-close v-else />
               </button>
             </td>
           </tr>

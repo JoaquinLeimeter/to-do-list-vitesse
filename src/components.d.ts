@@ -5,6 +5,8 @@
 declare module 'vue' {
   export interface GlobalComponents {
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
+    CarbonCheckmark: typeof import('~icons/carbon/checkmark')['default']
+    CarbonClose: typeof import('~icons/carbon/close')['default']
     CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
     CarbonLanguage: typeof import('~icons/carbon/language')['default']
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
