@@ -1,62 +1,114 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user'
-
-const user = useUserStore()
-const name = ref(user.savedName)
-
-const router = useRouter()
-const go = () => {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
+interface Todo {
+  id: number
+  text: string
+  completed: boolean
 }
 
-const { t } = useI18n()
+const todoList = ref<Todo[]>([
+  {
+    id: 0,
+    text: 'go to bathroom',
+    completed: true,
+  },
+  {
+    id: 1,
+    text: 'flush',
+    completed: false,
+  },
+  {
+    id: 2,
+    text: 'code',
+    completed: false,
+  },
+  {
+    id: 45,
+    text: 'go to the supermarket',
+    completed: true,
+  },
+])
+const changeState = (e: Event, id: number): void => {
+  todoList.value.forEach((item) => {
+    if (item.id === id)
+      item.completed = !item.completed
+  })
+}
 </script>
 
 <template>
-  <div>
-    <p class="text-4xl">
-      <carbon-campsite class="inline-block" />
-    </p>
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
-        Vitesse
-      </a>
-    </p>
-    <p>
-      <em class="text-sm opacity-75">{{ t('intro.desc') }}</em>
-    </p>
-
-    <div class="py-4" />
-
-    <input
-      id="input"
-      v-model="name"
-      :placeholder="t('intro.whats-your-name')"
-      :aria-label="t('intro.whats-your-name')"
-      type="text"
-      autocomplete="false"
-      p="x-4 y-2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
-    <div>
-      <button
-        class="m-3 text-sm btn"
-        :disabled="!name"
-        @click="go"
-      >
-        {{ t('button.go') }}
-      </button>
+  <div class="container">
+    <h1>To Do List</h1>
+    <div class="todo-list">
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>to do</th>
+            <th>done</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in todoList" :key="item.id">
+            <td>
+              {{ item.id }}
+            </td>
+            <td>
+              {{ item.text }}
+            </td>
+            <td>
+              <button class="icon-btn mx-2" @click="changeState(e, item.id)">
+                <carbon-checkmark v-if="item.completed" />
+                <carbon-close v-else />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
+
+<style scoped>
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
+  .container > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2rem 0;
+  }
+  .todo-list{
+    padding: 50px;
+    border: 3px solid #008080;
+    text-align: left;
+    box-shadow: 0px 0px 5px 2px #008080;
+    transition: box-shadow 1000ms;
+  }
+  .todo-list:hover{
+    box-shadow: 0px 0px 20px 10px #33afaf7c
+  }
+  .content-table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1.5rem;
+    min-width: 500px;
+  }
+  .content-table thead tr {
+    background-color: #008080;
+    text-align: left;
+    color: #FFF;
+  }
+  .content-table th,
+  .content-table td {
+    padding: 12px 15px;
+  }
+  .content-table tbody tr{
+    border-bottom: 1px solid #7C7C7C;
+  }
+</style>
 
 <route lang="yaml">
 meta:
