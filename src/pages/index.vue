@@ -27,6 +27,9 @@ const todoList = ref<Todo[]>([
     completed: true,
   },
 ])
+const changeState = (e: Event, id: number) => {
+  todoList.value[id].completed = !todoList.value[id].completed
+}
 </script>
 
 <template>
@@ -48,7 +51,7 @@ const todoList = ref<Todo[]>([
               {{ item.id }}
             </td>
             <td>
-          {{ item.text }}
+              {{ item.text }}
             </td>
             <td>
               {{ item.completed.toString() }}
