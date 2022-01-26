@@ -22,13 +22,16 @@ const todoList = ref<Todo[]>([
     completed: false,
   },
   {
-    id: 3,
+    id: 45,
     text: 'go to the supermarket',
     completed: true,
   },
 ])
-const changeState = (e: Event, id: number) => {
-  todoList.value[id].completed = !todoList.value[id].completed
+const changeState = (e: Event, id: number): void => {
+  todoList.value.forEach((item) => {
+    if (item.id === id)
+      item.completed = !item.completed
+  })
 }
 </script>
 
