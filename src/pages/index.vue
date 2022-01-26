@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const todoList = ref([
+interface Todo {
+  id: number
+  text: string
+  completed: boolean
+}
   {
     id: 0,
     text: 'go to bathroom',
