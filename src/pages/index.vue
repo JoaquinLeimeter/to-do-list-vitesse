@@ -4,6 +4,8 @@ interface Todo {
   text: string
   completed: boolean
 }
+
+const todoList = ref<Todo[]>([
   {
     id: 0,
     text: 'go to bathroom',
@@ -13,6 +15,16 @@ interface Todo {
     id: 1,
     text: 'flush',
     completed: false,
+  },
+  {
+    id: 2,
+    text: 'code',
+    completed: false,
+  },
+  {
+    id: 3,
+    text: 'go to the supermarket',
+    completed: true,
   },
 ])
 </script>
