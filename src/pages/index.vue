@@ -56,7 +56,7 @@ const changeState = (e: Event, id: number): void => {
               {{ item.text }}
             </td>
             <td>
-              <button @click="changeState(e, item.id)">
+              <button class="icon-btn mx-2" @click="changeState(e, item.id)">
                 <carbon-checkmark v-if="item.completed" />
                 <carbon-close v-else />
               </button>
@@ -82,8 +82,13 @@ const changeState = (e: Event, id: number): void => {
   }
   .todo-list{
     padding: 50px;
-    border: 3px solid red;
+    border: 3px solid #008080;
     text-align: left;
+    box-shadow: 0px 0px 5px 2px #008080;
+    transition: box-shadow 1000ms;
+  }
+  .todo-list:hover{
+    box-shadow: 0px 0px 20px 10px #33afaf7c
   }
   .content-table{
     border-collapse: collapse;
@@ -92,7 +97,7 @@ const changeState = (e: Event, id: number): void => {
     min-width: 500px;
   }
   .content-table thead tr {
-    background-color: rgb(83, 83, 83);
+    background-color: #008080;
     text-align: left;
     color: #FFF;
   }
@@ -101,7 +106,7 @@ const changeState = (e: Event, id: number): void => {
     padding: 12px 15px;
   }
   .content-table tbody tr{
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid #7C7C7C;
   }
 </style>
 
