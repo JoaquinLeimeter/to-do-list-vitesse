@@ -79,6 +79,7 @@ const deleteItem = (e: Event, id: number): void => {
     font-weight: 700;
     margin: 2rem 0;
   }
+  /* LIST */
   .todo-list{
     padding: 50px;
     border: 3px solid #008080;
@@ -104,8 +105,16 @@ const deleteItem = (e: Event, id: number): void => {
   .content-table td {
     padding: 12px 15px;
   }
-  .content-table tbody tr{
+  .content-table tbody tr {
     border-bottom: 1px solid #7C7C7C;
+  }
+  .content-table button {
+    display: inline;
+  }
+  .crossed {
+    text-decoration: line-through;
+    text-decoration-color: rgb(165, 28, 28);
+    text-decoration-thickness: 4px;
   }
 </style>
 
