@@ -8,6 +8,7 @@ declare module 'vue' {
     CarbonClose: typeof import('~icons/carbon/close')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
+    CarbonTrashCan: typeof import('~icons/carbon/trash-can')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     README: typeof import('./components/README.md')['default']
     ToDoItem: typeof import('./components/ToDoItem.vue')['default']
