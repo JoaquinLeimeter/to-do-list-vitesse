@@ -31,6 +31,7 @@ const changeState = (e: Event, id: number): void => {
   todoList.value.forEach((item) => {
     if (item.id === id)
       item.completed = !item.completed
+      return
   })
 }
 const deleteItem = (e: Event, id: number): void => {
