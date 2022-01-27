@@ -33,6 +33,9 @@ const changeState = (e: Event, id: number): void => {
       item.completed = !item.completed
   })
 }
+const deleteItem = (e: Event, id: number): void => {
+  todoList.value = todoList.value.filter((item) => item.id !== id)
+}
 </script>
 
 <template>
@@ -45,6 +48,7 @@ const changeState = (e: Event, id: number): void => {
             <th>#</th>
             <th>to do</th>
             <th>done</th>
+            <th>delete</th>
           </tr>
         </thead>
         <tbody>
