@@ -67,7 +67,7 @@ const deleteItem = (e: Event, id: number): void => {
   </div>
 </template>
 
-<style scoped>
+<style >
   .container{
     display: flex;
     flex-direction: column;
