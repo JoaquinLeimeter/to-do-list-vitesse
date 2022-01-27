@@ -48,19 +48,14 @@ const changeState = (e: Event, id: number): void => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in todoList" :key="item.id">
-            <td>
-              {{ item.id }}
-            </td>
-            <td>
-              {{ item.text }}
-            </td>
-            <td>
-              <button class="icon-btn mx-2" @click="changeState(e, item.id)">
-                <carbon-checkmark v-if="item.completed" />
-                <carbon-close v-else />
-              </button>
-            </td>
+          <tr v-for="(item, index) in todoList" :key="item.id">
+            <ToDoItem 
+              :index="index" 
+              :id="item.id" 
+              :text="item.text" 
+              :completed="item.completed"
+              @change-state="changeState" 
+              @delete="deleteItem"></ToDoItem>
           </tr>
         </tbody>
       </table>
