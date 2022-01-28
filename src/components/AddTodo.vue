@@ -4,7 +4,7 @@
     const emit = defineEmits(["taskSubmitted"]);
 
     const onSubmit = () => {
-        emit('taskSubmitted', inputText.value) // value from inputs is always a string
+  inputText.value && emit('taskSubmitted', inputText.value)
     }
 
 const inputTextError = computed(() => inputText.value?.length >= 50);
