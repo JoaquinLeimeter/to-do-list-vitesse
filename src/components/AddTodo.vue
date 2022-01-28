@@ -9,7 +9,7 @@ const onSubmit = () => {
 
 const inputTextError = computed(() => inputText.value?.length >= 50);
 
-watch(inputTextError, (value, oldValue) => {
+watch(inputTextError, () => {
   inputTextError.value && alert('warning, do not exeed 50 characters');
 });
 </script>
