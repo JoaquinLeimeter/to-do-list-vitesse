@@ -46,7 +46,7 @@ const addTask = (text: string) => {
       text,
       completed: true
     }
-    ]
+  ]
 }
 const showIncompleteTodos = ref(false)
 const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
@@ -69,7 +69,7 @@ const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
         </thead>
         <tbody>
           <tr v-for="(item, index) in todoList" :key="item.id">
-            <ToDoItem 
+            <ToDoItem
               v-if="showIncompleteTodos || item.completed"
               :index="index" 
               :id="item.id" 
