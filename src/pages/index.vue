@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AddTodo from "../components/AddTodo.vue";
 interface Todo {
   id: number
   text: string
@@ -37,6 +38,16 @@ const changeState = (e: Event, id: number): void => {
 const deleteItem = (e: Event, id: number): void => {
   todoList.value = todoList.value.filter((item) => item.id !== id)
 }
+const addTask = (text: string) => {
+  todoList.value = [
+    ...todoList.value,
+    {
+      id: new Date().valueOf(),
+      text,
+      completed: true
+    }
+    ]
+}
 </script>
 
 <template>
@@ -64,6 +75,7 @@ const deleteItem = (e: Event, id: number): void => {
           </tr>
         </tbody>
       </table>
+      <AddTodo @task-submitted="addTask"></AddTodo>
     </div>
   </div>
 </template>
