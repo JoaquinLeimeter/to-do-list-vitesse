@@ -75,7 +75,7 @@ const addTask = (text: string) => {
           </tr>
         </tbody>
       </table>
-      <AddTodo @task-submitted="addTask"></AddTodo>
+      <AddTodo @task-submitted="addTask" ></AddTodo>
     </div>
   </div>
 </template>
