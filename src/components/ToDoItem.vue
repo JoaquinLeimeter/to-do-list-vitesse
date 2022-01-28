@@ -21,7 +21,7 @@ const emit = defineEmits<{
       emit('change-state', event ,id)
       }">
       <carbon-checkmark v-if="completed" />
-      <carbon-close v-else />
+      <span v-else>Completed</span>
     </button>
   </td>
   <td>
