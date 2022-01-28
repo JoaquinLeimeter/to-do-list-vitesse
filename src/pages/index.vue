@@ -99,18 +99,19 @@ const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
   }
   /* LIST */
   .todo-list{
+    position: relative;
     padding: 50px;
     border: 3px solid #008080;
     text-align: left;
     box-shadow: 0px 0px 5px 2px #008080;
     transition: box-shadow 1000ms;
+    width: 600px;
   }
   .todo-list:hover{
     box-shadow: 0px 0px 20px 10px #33afaf7c
   }
   .content-table{
     border-collapse: collapse;
-    margin: 25px 0;
     font-size: 1.5rem;
     min-width: 500px;
   }
@@ -128,6 +129,12 @@ const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
   }
   .content-table button {
     display: inline;
+  }
+  .todo-list > button {
+    position: absolute;
+    top: 0px;
+    right: 50px;
+    padding: 1rem 0;
   }
   .crossed {
     text-decoration: line-through;
