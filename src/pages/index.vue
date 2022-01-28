@@ -56,8 +56,8 @@ const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
   <div class="container">
     <h1>To Do List</h1>
     <div class="todo-list">
-      <button @click="filterTodos" v-if="showIncompleteTodos">show incomplete tasks</button>
-      <button @click="filterTodos" v-else="showIncompleteTodos">undo</button>
+      <button @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
+      <button @click="filterTodos" v-else>undo</button>
       <table class="content-table">
         <thead>
           <tr>
@@ -70,7 +70,7 @@ const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
         <tbody>
           <tr v-for="(item, index) in todoList" :key="item.id">
             <ToDoItem
-              v-if="showIncompleteTodos || item.completed"
+              v-if="!showIncompleteTodos || item.completed"
               :index="index" 
               :id="item.id" 
               :text="item.text" 
