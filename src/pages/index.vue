@@ -31,7 +31,11 @@ const changeState = (e: Event, id: number): void => {
   todoList.value.forEach((item) => {
     if (item.id === id)
       item.completed = !item.completed
+      return
   })
+}
+const deleteItem = (e: Event, id: number): void => {
+  todoList.value = todoList.value.filter((item) => item.id !== id)
 }
 </script>
 
@@ -45,22 +49,18 @@ const changeState = (e: Event, id: number): void => {
             <th>#</th>
             <th>to do</th>
             <th>done</th>
+            <th>delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in todoList" :key="item.id">
-            <td>
-              {{ item.id }}
-            </td>
-            <td>
-              {{ item.text }}
-            </td>
-            <td>
-              <button class="icon-btn mx-2" @click="changeState(e, item.id)">
-                <carbon-checkmark v-if="item.completed" />
-                <carbon-close v-else />
-              </button>
-            </td>
+          <tr v-for="(item, index) in todoList" :key="item.id">
+            <ToDoItem 
+              :index="index" 
+              :id="item.id" 
+              :text="item.text" 
+              :completed="item.completed"
+              @change-state="changeState" 
+              @delete="deleteItem"></ToDoItem>
           </tr>
         </tbody>
       </table>
@@ -68,7 +68,7 @@ const changeState = (e: Event, id: number): void => {
   </div>
 </template>
 
-<style scoped>
+<style >
   .container{
     display: flex;
     flex-direction: column;
@@ -80,6 +80,7 @@ const changeState = (e: Event, id: number): void => {
     font-weight: 700;
     margin: 2rem 0;
   }
+  /* LIST */
   .todo-list{
     padding: 50px;
     border: 3px solid #008080;
@@ -105,8 +106,16 @@ const changeState = (e: Event, id: number): void => {
   .content-table td {
     padding: 12px 15px;
   }
-  .content-table tbody tr{
+  .content-table tbody tr {
     border-bottom: 1px solid #7C7C7C;
+  }
+  .content-table button {
+    display: inline;
+  }
+  .crossed {
+    text-decoration: line-through;
+    text-decoration-color: rgb(165, 28, 28);
+    text-decoration-thickness: 4px;
   }
 </style>
 
