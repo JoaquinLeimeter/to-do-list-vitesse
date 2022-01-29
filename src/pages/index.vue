@@ -32,7 +32,7 @@ const changeState = (e: Event, id: number): void => {
   todoList.value.forEach((item) => {
     if (item.id === id)
       item.completed = !item.completed
-      return
+    return
   })
 }
 const deleteItem = (e: Event, id: number): void => {
@@ -50,9 +50,15 @@ const addTask = (text: string) => {
 }
 const showIncompleteTodos = ref(false)
 const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
+
+const showModal = ref(false)
 </script>
 
 <template>
+  <!-- is it better is showModal = false is a function declared in <script> ? -->
+  <Modal v-if="showModal" @close-modal="() => showModal = false">
+    <AddTodo @task-submitted="addTask" @close-modal="() => showModal = false"></AddTodo>
+  </Modal>
   <div class="container">
     <h1>To Do List</h1>
     <div class="todo-list">
@@ -71,76 +77,77 @@ const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
           <tr v-for="(item, index) in todoList" :key="item.id">
             <ToDoItem
               v-if="!showIncompleteTodos || item.completed"
-              :index="index" 
-              :id="item.id" 
-              :text="item.text" 
+              :index="index"
+              :id="item.id"
+              :text="item.text"
               :completed="item.completed"
-              @change-state="changeState" 
-              @delete="deleteItem"></ToDoItem>
+              @change-state="changeState"
+              @delete="deleteItem"
+            ></ToDoItem>
           </tr>
         </tbody>
       </table>
-      <AddTodo @task-submitted="addTask" ></AddTodo>
     </div>
+    <button @click="() => showModal = true">Add Task!</button>
   </div>
 </template>
 
 <style >
-  .container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-  }
-  .container > h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 2rem 0;
-  }
-  /* LIST */
-  .todo-list{
-    position: relative;
-    padding: 50px;
-    border: 3px solid #008080;
-    text-align: left;
-    box-shadow: 0px 0px 5px 2px #008080;
-    transition: box-shadow 1000ms;
-    width: 600px;
-  }
-  .todo-list:hover{
-    box-shadow: 0px 0px 20px 10px #33afaf7c
-  }
-  .content-table{
-    border-collapse: collapse;
-    font-size: 1.5rem;
-    min-width: 500px;
-  }
-  .content-table thead tr {
-    background-color: #008080;
-    text-align: left;
-    color: #FFF;
-  }
-  .content-table th,
-  .content-table td {
-    padding: 12px 15px;
-  }
-  .content-table tbody tr {
-    border-bottom: 1px solid #7C7C7C;
-  }
-  .content-table button {
-    display: inline;
-  }
-  .todo-list > button {
-    position: absolute;
-    top: 0px;
-    right: 50px;
-    padding: 1rem 0;
-  }
-  .crossed {
-    text-decoration: line-through;
-    text-decoration-color: rgb(165, 28, 28);
-    text-decoration-thickness: 4px;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+.container > h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 2rem 0;
+}
+/* LIST */
+.todo-list {
+  position: relative;
+  padding: 50px;
+  border: 3px solid #008080;
+  text-align: left;
+  box-shadow: 0px 0px 5px 2px #008080;
+  transition: box-shadow 1000ms;
+  width: 600px;
+}
+.todo-list:hover {
+  box-shadow: 0px 0px 20px 10px #33afaf7c;
+}
+.content-table {
+  border-collapse: collapse;
+  font-size: 1.5rem;
+  min-width: 500px;
+}
+.content-table thead tr {
+  background-color: #008080;
+  text-align: left;
+  color: #fff;
+}
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+.content-table tbody tr {
+  border-bottom: 1px solid #7c7c7c;
+}
+.content-table button {
+  display: inline;
+}
+.todo-list > button {
+  position: absolute;
+  top: 0px;
+  right: 50px;
+  padding: 1rem 0;
+}
+.crossed {
+  text-decoration: line-through;
+  text-decoration-color: rgb(165, 28, 28);
+  text-decoration-thickness: 4px;
+}
 </style>
 
 <route lang="yaml">
