@@ -4,7 +4,7 @@ const inputText = ref('')
 const emit = defineEmits(["taskSubmitted"]);
 
 const onSubmit = () => {
-  inputText.value && emit('taskSubmitted', inputText.value)
+  inputText.value && !inputTextError.value && emit('taskSubmitted', inputText.value)
 }
 
 const inputTextError = computed(() => inputText.value?.length >= 50);
