@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AddTodo from "../components/AddTodo.vue";
 interface Todo {
   id: number
   text: string
@@ -37,12 +38,26 @@ const changeState = (e: Event, id: number): void => {
 const deleteItem = (e: Event, id: number): void => {
   todoList.value = todoList.value.filter((item) => item.id !== id)
 }
+const addTask = (text: string) => {
+  todoList.value = [
+    ...todoList.value,
+    {
+      id: new Date().valueOf(),
+      text,
+      completed: true
+    }
+  ]
+}
+const showIncompleteTodos = ref(false)
+const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
 </script>
 
 <template>
   <div class="container">
     <h1>To Do List</h1>
     <div class="todo-list">
+      <button @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
+      <button @click="filterTodos" v-else>undo</button>
       <table class="content-table">
         <thead>
           <tr>
@@ -54,7 +69,8 @@ const deleteItem = (e: Event, id: number): void => {
         </thead>
         <tbody>
           <tr v-for="(item, index) in todoList" :key="item.id">
-            <ToDoItem 
+            <ToDoItem
+              v-if="!showIncompleteTodos || item.completed"
               :index="index" 
               :id="item.id" 
               :text="item.text" 
@@ -64,6 +80,7 @@ const deleteItem = (e: Event, id: number): void => {
           </tr>
         </tbody>
       </table>
+      <AddTodo @task-submitted="addTask" ></AddTodo>
     </div>
   </div>
 </template>
@@ -82,18 +99,19 @@ const deleteItem = (e: Event, id: number): void => {
   }
   /* LIST */
   .todo-list{
+    position: relative;
     padding: 50px;
     border: 3px solid #008080;
     text-align: left;
     box-shadow: 0px 0px 5px 2px #008080;
     transition: box-shadow 1000ms;
+    width: 600px;
   }
   .todo-list:hover{
     box-shadow: 0px 0px 20px 10px #33afaf7c
   }
   .content-table{
     border-collapse: collapse;
-    margin: 25px 0;
     font-size: 1.5rem;
     min-width: 500px;
   }
@@ -111,6 +129,12 @@ const deleteItem = (e: Event, id: number): void => {
   }
   .content-table button {
     display: inline;
+  }
+  .todo-list > button {
+    position: absolute;
+    top: 0px;
+    right: 50px;
+    padding: 1rem 0;
   }
   .crossed {
     text-decoration: line-through;
