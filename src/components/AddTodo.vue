@@ -6,7 +6,7 @@ const emit = defineEmits(["taskSubmitted", "closeModal"]);
 const onSubmit = () => {
   inputText.value &&
     !inputTextError.value &&
-    emit('taskSubmitted', inputText.value) &&
+    emit('taskSubmitted', inputText.value) ||
     emit('closeModal')
 }
 
