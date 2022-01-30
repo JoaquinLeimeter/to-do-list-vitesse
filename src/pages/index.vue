@@ -59,7 +59,7 @@ const showModal = ref(false)
   <Modal v-if="showModal" @close-modal="() => showModal = false">
     <AddTodo @task-submitted="addTask" @close-modal="() => showModal = false"></AddTodo>
   </Modal>
-  <div class="container">
+  <div class="flex flex-col m-auto items-center">
     <h1>To Do List</h1>
     <div class="todo-list">
       <button @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
@@ -88,17 +88,17 @@ const showModal = ref(false)
         </tbody>
       </table>
     </div>
-    <button @click="() => showModal = true">Add Task!</button>
+    <button @click="() => showModal = true" class="px-7 py-3 mt-5 border border-grey-400/50 rounded-sm ">Add Task!</button>
   </div>
 </template>
 
 <style >
-.container {
+/* .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
-}
+} */
 .container > h1 {
   font-size: 2rem;
   font-weight: 700;
