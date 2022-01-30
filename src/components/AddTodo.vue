@@ -18,39 +18,11 @@ watch(inputTextError, () => {
 </script>
 
 <template>
-  <div class="formContainer">
-    <form @submit.prevent="onSubmit">
-      <input id="text" placeholder="wash clothes" v-model="inputText" />
-      <span :class="inputTextError && 'spanError'">{{ inputText.length }} of 50 characters</span>
-      <button type="submit" value="Submit">Add!</button>
+  <div class="p-8 bg-[#008080]">
+    <form @submit.prevent="onSubmit" class="flex flex-col items-center">
+      <input id="text" placeholder="wash clothes" v-model="inputText" class="m-2 p-3"/>
+      <span :class="inputTextError && 'text-red-500'">{{ inputText.length }} of 50 characters</span>
+      <button type="submit" value="Submit" class="border-2 rounded-sm border-grey-400 py-2 px-5 mt-3">Add!</button>
     </form>
   </div>
 </template>
-
-<style>
-.formContainer {
-  background-color: #008080;
-  padding: 1rem;
-}
-.formContainer > form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.formContainer > form > div > label {
-  padding: 0.6rem;
-}
-.formContainer button {
-  border: 2px solid #fff;
-  border-radius: 3px;
-  padding: 0.5rem 1.5rem;
-  margin: 0.3rem;
-}
-.formContainer input {
-  margin: 0.5rem;
-  padding: 0.5rem;
-}
-.spanError {
-  color: red;
-}
-</style>
