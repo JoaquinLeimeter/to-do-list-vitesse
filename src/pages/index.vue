@@ -7,26 +7,14 @@ onMounted(() => {
 })
 const todos = computed(() => store.state.todos)
 
-const changeState = (e: Event, id: number): void => {
-  todoList.value.forEach((item) => {
-    if (item.id === id)
-      item.completed = !item.completed
-    return
-  })
-}
 const deleteItem = (e: Event, id: number): void => {
-  todoList.value = todoList.value.filter((item) => item.id !== id)
+  store.commit('deleteTodo', id)
+}
+const changeState = (e: Event, id: number): void => {
+  store.commit('changeState', id)
 }
 const addTask = (title: string) => {
-  todoList.value = [
-    {
-      id: new Date().valueOf(),
-      userId: new Date().valueOf() + 1,
-      title,
-      completed: true
-    },
-    ...todoList.value,
-  ]
+  store.commit('addTodo', title)
 }
 const showIncompleteTodos = ref(false)
 const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
