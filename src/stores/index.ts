@@ -2,7 +2,7 @@ import Vuex from 'vuex'
 
 export const store = new Vuex.Store({
 	state: {
-		todos: []
+		todos: <any>[]
 	},
 	mutations: {
 		getTodos(state) {

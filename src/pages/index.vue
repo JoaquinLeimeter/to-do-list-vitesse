@@ -24,7 +24,7 @@ const showModal = ref(false)
 const tasks = computed(() => todos.value.length)
 const completedTasks = computed(() => {
   let tasks: number = 0
-  todos.value.forEach((task) => {
+  todos.value.forEach((task: any) => {
     task.completed && tasks++
   })
   return tasks
