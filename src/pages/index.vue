@@ -21,10 +21,10 @@ const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
 
 const showModal = ref(false)
 
-const tasks = computed(() => todoList.value.length)
+const tasks = computed(() => todos.value.length)
 const completedTasks = computed(() => {
   let tasks: number = 0
-  todoList.value.forEach((task) => {
+  todos.value.forEach((task) => {
     task.completed && tasks++
   })
   return tasks
@@ -56,9 +56,9 @@ const completedTasks = computed(() => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in todoList" :key="item.id">
+          <tr v-for="(item, index) in todos" :key="item.id">
             <ToDoItem
-              v-if="showIncompleteTodos || item.completed"
+              v-if="!item.completed || !showIncompleteTodos"
               :index="index"
               :id="item.id"
               :text="item.title"
