@@ -54,6 +54,9 @@ const showModal = ref(false)
   </Modal>
   <div class="flex flex-col m-auto items-center">
     <h1 class="text-lg mx-0 my-8 text-2xl font-bold my-8 mx-0">To Do List</h1>
+    <CompletedTasks>
+      <h3>completed {{ completedTasks }} tasks of {{ tasks }} </h3>
+    </CompletedTasks>
     <div class="p-[3.125rem] pt-0 border-3 border-[#008080] text-left w-[37.5rem] todo-list">
       <button @click="() => showModal = true" class="px-[1rem] py-[0.25rem] my-[1.25rem] mx-0 border border-grey-400/50 rounded-sm ">Add Task!</button>
       <button class="filterButton" @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
