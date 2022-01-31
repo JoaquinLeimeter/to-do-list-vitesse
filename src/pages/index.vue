@@ -2,32 +2,23 @@
 import AddTodo from "../components/AddTodo.vue";
 interface Todo {
   id: number
-  text: string
+  userId: number
+  title: string
   completed: boolean
 }
 
-const todoList = ref<Todo[]>([
-  {
-    id: 0,
-    text: 'go to bathroom',
-    completed: true,
-  },
-  {
-    id: 1,
-    text: 'flush',
-    completed: false,
-  },
-  {
-    id: 2,
-    text: 'code',
-    completed: false,
-  },
-  {
-    id: 45,
-    text: 'go to the supermarket',
-    completed: true,
-  },
-])
+const todoList = ref<Todo[]>([])
+onMounted(() => {
+  fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(response => response.json())
+    .then(data => {
+      todoList.value = data
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+})
+
 const changeState = (e: Event, id: number): void => {
   todoList.value.forEach((item) => {
     if (item.id === id)
@@ -38,20 +29,22 @@ const changeState = (e: Event, id: number): void => {
 const deleteItem = (e: Event, id: number): void => {
   todoList.value = todoList.value.filter((item) => item.id !== id)
 }
-const addTask = (text: string) => {
+const addTask = (title: string) => {
   todoList.value = [
-    ...todoList.value,
     {
       id: new Date().valueOf(),
-      text,
+      userId: new Date().valueOf() + 1,
+      title,
       completed: true
-    }
+    },
+    ...todoList.value,
   ]
 }
 const showIncompleteTodos = ref(false)
 const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
 
 const showModal = ref(false)
+
 </script>
 
 <template>
@@ -62,6 +55,7 @@ const showModal = ref(false)
   <div class="flex flex-col m-auto items-center">
     <h1 class="text-lg mx-0 my-8 text-2xl font-bold my-8 mx-0">To Do List</h1>
     <div class="p-[3.125rem] pt-0 border-3 border-[#008080] text-left w-[37.5rem] todo-list">
+      <button @click="() => showModal = true" class="px-[1rem] py-[0.25rem] my-[1.25rem] mx-0 border border-grey-400/50 rounded-sm ">Add Task!</button>
       <button class="filterButton" @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
       <button class="filterButton" @click="filterTodos" v-else>undo</button>
       <table class="content-table border-collapse w-min-[31.25rem] text-2xl">
@@ -79,7 +73,7 @@ const showModal = ref(false)
               v-if="!showIncompleteTodos || item.completed"
               :index="index"
               :id="item.id"
-              :text="item.text"
+              :text="item.title"
               :completed="item.completed"
               @change-state="changeState"
               @delete="deleteItem"
@@ -88,7 +82,6 @@ const showModal = ref(false)
         </tbody>
       </table>
     </div>
-    <button @click="() => showModal = true" class="px-7 py-3 mt-5 border border-grey-400/50 rounded-sm ">Add Task!</button>
   </div>
 </template>
 
