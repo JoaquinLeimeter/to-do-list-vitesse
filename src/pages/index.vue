@@ -55,16 +55,16 @@ const showModal = ref(false)
 </script>
 
 <template>
-  <!-- is it better is showModal = false is a function declared in <script> ? -->
+  <!-- is it better if showModal = false is a function declared in <script> ? -->
   <Modal v-if="showModal" @close-modal="() => showModal = false">
     <AddTodo @task-submitted="addTask" @close-modal="() => showModal = false"></AddTodo>
   </Modal>
   <div class="flex flex-col m-auto items-center">
-    <h1>To Do List</h1>
-    <div class="todo-list">
-      <button @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
-      <button @click="filterTodos" v-else>undo</button>
-      <table class="content-table">
+    <h1 class="text-lg mx-0 my-8 text-2xl font-bold my-8 mx-0">To Do List</h1>
+    <div class="p-[3.125rem] pt-0 border-3 border-[#008080] text-left w-[37.5rem] todo-list">
+      <button class="filterButton" @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
+      <button class="filterButton" @click="filterTodos" v-else>undo</button>
+      <table class="content-table border-collapse w-min-[31.25rem] text-2xl">
         <thead>
           <tr>
             <th>#</th>
@@ -93,35 +93,15 @@ const showModal = ref(false)
 </template>
 
 <style >
-/* .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
-} */
-.container > h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 2rem 0;
-}
-/* LIST */
+/* animation */
 .todo-list {
-  position: relative;
-  padding: 50px;
-  border: 3px solid #008080;
-  text-align: left;
   box-shadow: 0px 0px 5px 2px #008080;
   transition: box-shadow 1000ms;
-  width: 600px;
 }
 .todo-list:hover {
   box-shadow: 0px 0px 20px 10px #33afaf7c;
 }
-.content-table {
-  border-collapse: collapse;
-  font-size: 1.5rem;
-  min-width: 500px;
-}
+/* here I reference list items so I do it with selectors instead of WindiCSS */
 .content-table thead tr {
   background-color: #008080;
   text-align: left;
@@ -134,15 +114,15 @@ const showModal = ref(false)
 .content-table tbody tr {
   border-bottom: 1px solid #7c7c7c;
 }
-.content-table button {
-  display: inline;
+/* this class is not using windiCSS because it's the same for 2 buttons */
+.filterButton {
+  padding: 0.25rem 1rem;
+  margin: 1.25rem 0;
+  float: right;
+  border: 1px solid #FFF;
+  white-space: nowrap;
 }
-.todo-list > button {
-  position: absolute;
-  top: 0px;
-  right: 50px;
-  padding: 1rem 0;
-}
+/* I didnt find text-decoration-color or thickness in windiCSS */
 .crossed {
   text-decoration: line-through;
   text-decoration-color: rgb(165, 28, 28);
