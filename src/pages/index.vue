@@ -1,23 +1,11 @@
 <script setup lang="ts">
 import AddTodo from "../components/AddTodo.vue";
-interface Todo {
-  id: number
-  userId: number
-  title: string
-  completed: boolean
-}
+import {store} from '../stores/index'
 
-const todoList = ref<Todo[]>([])
 onMounted(() => {
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(response => response.json())
-    .then(data => {
-      todoList.value = data
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+  store.commit('getTodos')
 })
+const todos = computed(() => store.state.todos)
 
 const changeState = (e: Event, id: number): void => {
   todoList.value.forEach((item) => {
