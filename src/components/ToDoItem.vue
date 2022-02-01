@@ -16,7 +16,9 @@ const emit = defineEmits<{
 
 <template>
   <td>{{index + 1}}</td>
-  <td :class=" completed && 'crossed' " @click="() => emit('selectedId', id)">{{text}}</td>
+  <router-link :to="{ name: 'details', params: { id: id } }">
+    <td :class=" completed && 'crossed' " @click="() => emit('selectedId', id)">{{text}}</td>
+  </router-link>
   <td class="overflow-hidden overflow-ellipsis w-[12.5rem]">
     <button class="icon-btn mx-2" @click="(event) => {
       emit('change-state', event ,id)
