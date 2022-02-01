@@ -34,9 +34,11 @@ const completedTasks = computed(() => {
 
 <template>
   <!-- is it better if showModal = false is a function declared in <script> ? -->
-  <Modal v-if="showModal" @close-modal="() => showModal = false">
-    <AddTodo @task-submitted="addTask" @close-modal="() => showModal = false"></AddTodo>
-  </Modal>
+  <transition name="fade">
+    <Modal v-if="showModal" @close-modal="() => showModal = false">
+      <AddTodo @task-submitted="addTask" @close-modal="() => showModal = false"></AddTodo>
+    </Modal>
+  </transition>
   <div class="flex flex-col m-auto items-center">
     <h1 class="text-lg mx-0 my-8 text-2xl font-bold my-8 mx-0">To Do List</h1>
     <CompletedTasks>
@@ -56,7 +58,7 @@ const completedTasks = computed(() => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in todos" :key="item.id">
+          <tr v-for="(item, index) of todos" :key="item.id">
             <ToDoItem
               v-if="!item.completed || !showIncompleteTodos"
               :index="index"
@@ -108,6 +110,14 @@ const completedTasks = computed(() => {
   text-decoration: line-through;
   text-decoration-color: rgb(165, 28, 28);
   text-decoration-thickness: 4px;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
 
