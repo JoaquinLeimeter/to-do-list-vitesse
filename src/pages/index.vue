@@ -32,6 +32,9 @@ const completedTasks = computed(() => {
 
 const selectedToDoId = ref(0)
 const selectedId = (id: number) => selectedToDoId.value = id
+const selectedTodo = computed(() => {
+  return todos.value.find((todo: any) => todo.id === selectedToDoId.value)
+})
 </script>
 
 <template>
