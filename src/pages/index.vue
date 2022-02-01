@@ -30,11 +30,11 @@ const completedTasks = computed(() => {
   return tasks
 })
 
-const selectedToDoId = ref(0)
-const selectedId = (id: number) => selectedToDoId.value = id
-const selectedTodo = computed(() => {
-  return todos.value.find((todo: any) => todo.id === selectedToDoId.value)
-})
+// const selectedToDoId = ref(0)
+// const selectedId = (id: number) => selectedToDoId.value = id
+// const selectedTodo = computed(() => {
+//   return todos.value.find((todo: any) => todo.id === selectedToDoId.value)
+// })
 </script>
 
 <template>
@@ -56,7 +56,7 @@ const selectedTodo = computed(() => {
       <table class="content-table border-collapse w-min-[31.25rem] text-2xl">
         <thead>
           <tr>
-            <th>#</th>
+            <th>id</th>
             <th>to do</th>
             <th>done</th>
             <th>delete</th>
