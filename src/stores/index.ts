@@ -28,8 +28,8 @@ export const store = new Vuex.Store({
     addTodo(state, title) {
       state.todos = [
         {
-          id: new Date().valueOf(),
-          userId: new Date().valueOf() + 1,
+          id: Math.floor(1000 + Math.random() * 9000),
+          userId: Math.floor(1000 + Math.random() * 9000) + 1,
           title,
           completed: false
         },
