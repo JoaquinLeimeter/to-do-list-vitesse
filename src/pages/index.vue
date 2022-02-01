@@ -30,6 +30,7 @@ const completedTasks = computed(() => {
   return tasks
 })
 
+const selectedToDoId = ref(0)
 </script>
 
 <template>
