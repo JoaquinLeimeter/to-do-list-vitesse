@@ -31,6 +31,7 @@ const completedTasks = computed(() => {
 })
 
 const selectedToDoId = ref(0)
+const selectedId = (id: number) => selectedToDoId.value = id
 </script>
 
 <template>
@@ -68,6 +69,7 @@ const selectedToDoId = ref(0)
               :completed="item.completed"
               @change-state="changeState"
               @delete="deleteItem"
+              @selectedId="selectedId"
             ></ToDoItem>
           </tr>
         </tbody>
