@@ -5,11 +5,11 @@
 declare module 'vue' {
   export interface GlobalComponents {
     AddTodo: typeof import('./components/AddTodo.vue')['default']
-    CarbonCheckmark: typeof import('~icons/carbon/checkmark')['default']
     CarbonClose: typeof import('~icons/carbon/close')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
     CarbonTrashCan: typeof import('~icons/carbon/trash-can')['default']
+    CompletedTasks: typeof import('./components/CompletedTasks.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     Modal: typeof import('./components/Modal.vue')['default']
     README: typeof import('./components/README.md')['default']

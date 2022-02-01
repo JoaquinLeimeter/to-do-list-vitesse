@@ -4,10 +4,12 @@ const inputText = ref('')
 const emit = defineEmits(["taskSubmitted", "closeModal"]);
 
 const onSubmit = () => {
-  inputText.value &&
-    !inputTextError.value &&
-    emit('taskSubmitted', inputText.value) ||
+  if(inputText.value && !inputTextError.value) {
+    emit('taskSubmitted', inputText.value)
     emit('closeModal')
+  } else {
+    alert("text too large")
+  }
 }
 
 const inputTextError = computed(() => inputText.value?.length >= 50);

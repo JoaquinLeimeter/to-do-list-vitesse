@@ -15,13 +15,13 @@ const emit = defineEmits<{
 
 <template>
   <td>{{index + 1}}</td>
-  <td :class=" !completed && 'crossed' ">{{text}}</td>
+  <td :class=" completed && 'crossed' ">{{text}}</td>
   <td class="overflow-hidden overflow-ellipsis w-[12.5rem]">
     <button class="icon-btn mx-2" @click="(event) => {
       emit('change-state', event ,id)
       }">
-      <carbon-checkmark v-if="completed" />
-      <span v-else>Completed</span>
+      <span v-if="completed">Completed</span>
+      <span v-else>Not completed</span>
     </button>
   </td>
   <td>

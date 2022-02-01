@@ -1,67 +1,51 @@
 <script setup lang="ts">
 import AddTodo from "../components/AddTodo.vue";
-interface Todo {
-  id: number
-  text: string
-  completed: boolean
-}
+import {store} from '../stores/index'
 
-const todoList = ref<Todo[]>([
-  {
-    id: 0,
-    text: 'go to bathroom',
-    completed: true,
-  },
-  {
-    id: 1,
-    text: 'flush',
-    completed: false,
-  },
-  {
-    id: 2,
-    text: 'code',
-    completed: false,
-  },
-  {
-    id: 45,
-    text: 'go to the supermarket',
-    completed: true,
-  },
-])
-const changeState = (e: Event, id: number): void => {
-  todoList.value.forEach((item) => {
-    if (item.id === id)
-      item.completed = !item.completed
-    return
-  })
-}
+onMounted(() => {
+  store.commit('getTodos')
+})
+const todos = computed(() => store.state.todos)
+
 const deleteItem = (e: Event, id: number): void => {
-  todoList.value = todoList.value.filter((item) => item.id !== id)
+  store.commit('deleteTodo', id)
 }
-const addTask = (text: string) => {
-  todoList.value = [
-    ...todoList.value,
-    {
-      id: new Date().valueOf(),
-      text,
-      completed: true
-    }
-  ]
+const changeState = (e: Event, id: number): void => {
+  store.commit('changeState', id)
+}
+const addTask = (title: string) => {
+  store.commit('addTodo', title)
 }
 const showIncompleteTodos = ref(false)
 const filterTodos = () => showIncompleteTodos.value = !showIncompleteTodos.value
 
 const showModal = ref(false)
+
+const tasks = computed(() => todos.value.length)
+const completedTasks = computed(() => {
+  let tasks: number = 0
+  todos.value.forEach((task: any) => {
+    task.completed && tasks++
+  })
+  return tasks
+})
+
 </script>
 
 <template>
   <!-- is it better if showModal = false is a function declared in <script> ? -->
-  <Modal v-if="showModal" @close-modal="() => showModal = false">
-    <AddTodo @task-submitted="addTask" @close-modal="() => showModal = false"></AddTodo>
-  </Modal>
+  <transition name="fade">
+    <Modal v-if="showModal" @close-modal="() => showModal = false">
+      <AddTodo @task-submitted="addTask" @close-modal="() => showModal = false"></AddTodo>
+    </Modal>
+  </transition>
   <div class="flex flex-col m-auto items-center">
     <h1 class="text-lg mx-0 my-8 text-2xl font-bold my-8 mx-0">To Do List</h1>
+    <CompletedTasks>
+      <h3>completed {{ completedTasks }} tasks of {{ tasks }} </h3>
+    </CompletedTasks>
     <div class="p-[3.125rem] pt-0 border-3 border-[#008080] text-left w-[37.5rem] todo-list">
+      <button @click="() => showModal = true" class="px-[1rem] py-[0.25rem] my-[1.25rem] mx-0 border border-grey-400/50 rounded-sm ">Add Task!</button>
       <button class="filterButton" @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
       <button class="filterButton" @click="filterTodos" v-else>undo</button>
       <table class="content-table border-collapse w-min-[31.25rem] text-2xl">
@@ -74,12 +58,12 @@ const showModal = ref(false)
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in todoList" :key="item.id">
+          <tr v-for="(item, index) of todos" :key="item.id">
             <ToDoItem
-              v-if="!showIncompleteTodos || item.completed"
+              v-if="!item.completed || !showIncompleteTodos"
               :index="index"
               :id="item.id"
-              :text="item.text"
+              :text="item.title"
               :completed="item.completed"
               @change-state="changeState"
               @delete="deleteItem"
@@ -88,7 +72,6 @@ const showModal = ref(false)
         </tbody>
       </table>
     </div>
-    <button @click="() => showModal = true" class="px-7 py-3 mt-5 border border-grey-400/50 rounded-sm ">Add Task!</button>
   </div>
 </template>
 
@@ -127,6 +110,14 @@ const showModal = ref(false)
   text-decoration: line-through;
   text-decoration-color: rgb(165, 28, 28);
   text-decoration-thickness: 4px;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
 
