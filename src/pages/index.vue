@@ -30,6 +30,11 @@ const completedTasks = computed(() => {
   return tasks
 })
 
+// const selectedToDoId = ref(0)
+// const selectedId = (id: number) => selectedToDoId.value = id
+// const selectedTodo = computed(() => {
+//   return todos.value.find((todo: any) => todo.id === selectedToDoId.value)
+// })
 </script>
 
 <template>
@@ -44,24 +49,23 @@ const completedTasks = computed(() => {
     <CompletedTasks>
       <h3>completed {{ completedTasks }} tasks of {{ tasks }} </h3>
     </CompletedTasks>
-    <div class="p-[3.125rem] pt-0 border-3 border-[#008080] text-left w-[37.5rem] todo-list">
+    <div class="p-[3.125rem] pt-0 border-3 border-[#008080] text-left todo-list w-min-[37.5rem] w-max-[40rem]">
       <button @click="() => showModal = true" class="px-[1rem] py-[0.25rem] my-[1.25rem] mx-0 border border-grey-400/50 rounded-sm ">Add Task!</button>
       <button class="filterButton" @click="filterTodos" v-if="!showIncompleteTodos">show incomplete tasks</button>
       <button class="filterButton" @click="filterTodos" v-else>undo</button>
       <table class="content-table border-collapse w-min-[31.25rem] text-2xl">
         <thead>
           <tr>
-            <th>#</th>
+            <th>id</th>
             <th>to do</th>
             <th>done</th>
             <th>delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) of todos" :key="item.id">
+          <tr v-for="item of todos" :key="item.id">
             <ToDoItem
               v-if="!item.completed || !showIncompleteTodos"
-              :index="index"
               :id="item.id"
               :text="item.title"
               :completed="item.completed"
