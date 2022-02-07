@@ -3,6 +3,7 @@ import AddTodo from '../components/AddTodo.vue'
 import { store } from '../stores/index'
 
 onMounted(() => {
+  store.commit('clearSelected')
   store.commit('getTodos')
 })
 const todos = computed(() => store.state.todos)

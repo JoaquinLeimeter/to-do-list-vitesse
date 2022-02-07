@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { store } from '../stores'
 
 const props = defineProps<{
   id: number
@@ -14,7 +15,8 @@ const emit = defineEmits<{
 
 const router = useRouter()
 const go = () => {
-  router.push(`/details?id=${id.value}`)
+  store.commit('selectTodo', props)
+  router.push('/details')
 }
 
 </script>

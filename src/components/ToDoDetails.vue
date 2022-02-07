@@ -1,26 +1,25 @@
 <script setup lang="ts">
-import useSelectedToDo from '~/use/useSelectedToDo'
+import { store } from '../stores'
 
 const router = useRouter()
-const route = useRoute()
 
-const selectedToDo = ref({}) as any
+const selectedTodo = computed(() => store.state.selectedTodo)
 
-onMounted(() => {
-  selectedToDo.value = useSelectedToDo(route.query.id)
-})
+const goBack = () => {
+  router.back()
+}
 </script>
 
 <template>
   <div class="bg-red-600 p-10 flex align-middle justify-center table-content">
     <ToDoItem
-      :id="selectedToDo.id"
+      :id="selectedTodo.id"
       :index="0"
-      :text="selectedToDo.title"
-      :completed="selectedToDo.completed"
+      :text="selectedTodo.text"
+      :completed="selectedTodo.completed"
     />
   </div>
-  <button @click="router.back()">
+  <button @click="goBack()">
     Go Back!
   </button>
 </template>
