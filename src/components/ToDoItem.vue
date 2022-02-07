@@ -5,7 +5,7 @@ const props = defineProps<{
   text: string
   completed: boolean
 }>()
-const { id, text, completed } = toRefs(props);
+const { id, text, completed } = toRefs(props)
 const emit = defineEmits<{
   (e: 'change-state', event: Event, id: number): void
   (e: 'delete', event: Event, id: number): void
@@ -14,27 +14,33 @@ const emit = defineEmits<{
 
 const router = useRouter()
 const go = () => {
-    router.push(`/details?id=${encodeURIComponent(id.value)}`)
+  router.push(`/details?id=${id.value}`)
 }
 
 </script>
 
 <template>
-  <td>{{id}}</td>
-  <td :class=" completed && 'crossed' " @click="go">{{text}}</td>
+  <td>{{ id }}</td>
+  <td :class=" completed && 'crossed' " @click="go">
+    {{ text }}
+  </td>
   <td class="overflow-hidden overflow-ellipsis w-[12.5rem]">
-    <button class="icon-btn mx-2" @click="(event) => {
-      emit('change-state', event ,id)
-      }">
+    <button
+      class="icon-btn mx-2" @click="(event) => {
+        emit('change-state', event ,id)
+      }"
+    >
       <span v-if="completed">Completed</span>
       <span v-else>Not completed</span>
     </button>
   </td>
   <td>
-    <button class="icon-btn mx-2" @click="(event) => {
-      emit('delete', event , id)
-      }">
-      <carbon-trash-can/>
+    <button
+      class="icon-btn mx-2" @click="(event) => {
+        emit('delete', event , id)
+      }"
+    >
+      <carbon-trash-can />
     </button>
   </td>
 </template>

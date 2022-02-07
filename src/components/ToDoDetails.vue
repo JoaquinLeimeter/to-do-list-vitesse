@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import useSelectedToDo from '../use/useSelectedToDo'
+import useSelectedToDo from '~/use/useSelectedToDo'
 
 const router = useRouter()
+const route = useRoute()
 
-const selectedToDo = ref({})
-const selectedToDoId = ref<any>(0)
+const selectedToDo = ref({
+  id: 1,
+  text: 'hello',
+  completed: false,
+}) as any
 
 onMounted(() => {
-  let urlParams = new URLSearchParams(window.location.search);
-  selectedToDoId.value = urlParams.get('id')
-  selectedToDo.value = useSelectedToDo(selectedToDoId.value)
-  console.log('SELECTEDTODO', selectedToDo.value)
+  selectedToDo.value = useSelectedToDo(route.query.id)
 })
 </script>
 
 <template>
   <div>
     <ToDoItem
-      :index="0"
       :id="selectedToDo.id"
+      :index="0"
       :text="selectedToDo.title"
       :completed="selectedToDo.completed"
-    ></ToDoItem>
+    />
+    {{ selectedToDo.id }}
   </div>
-  <button  @click="router.back()">Go Back!</button>
+  <button @click="router.back()">
+    Go Back!
+  </button>
 </template>
