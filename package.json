@@ -21,7 +21,8 @@
     "vue-demi": "^0.12.1",
     "vue-i18n": "^9.1.9",
     "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.16.0",

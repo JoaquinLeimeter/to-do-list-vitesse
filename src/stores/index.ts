@@ -1,10 +1,12 @@
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 export const store = new Vuex.Store({
   state: {
     todos: <any>[],
     selectedTodo: <any>{},
   },
+  plugins: [createPersistedState()],
   mutations: {
     getTodos(state) {
       fetch('https://jsonplaceholder.typicode.com/todos')
