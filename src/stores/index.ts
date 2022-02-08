@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 export const store = new Vuex.Store({
   state: {
     todos: <any>[],
+    selectedTodo: <any>{},
   },
   mutations: {
     getTodos(state) {
@@ -34,6 +35,12 @@ export const store = new Vuex.Store({
         },
         ...state.todos,
       ]
+    },
+    selectTodo(state, todo): void {
+      state.selectedTodo = todo
+    },
+    clearSelected(state) {
+      state.selectedTodo = {}
     },
   },
   getters: {
